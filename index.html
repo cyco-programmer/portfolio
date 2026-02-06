@@ -23,7 +23,6 @@
             height: 100%;
             overflow: hidden;
             font-family: 'Inter', sans-serif;
-            cursor: none;
         }
 
         .portfolio-container {
@@ -50,13 +49,6 @@
             z-index: 1;
         }
 
-        .reveal-image {
-            background-image: url('/mnt/user-data/uploads/G9aIZFqacAABnWA.jpg');
-            z-index: 2;
-            clip-path: circle(0px at 50% 50%);
-            transition: clip-path 0.05s ease-out;
-        }
-
         /* Animated Grid Background */
         .grid-overlay {
             position: absolute;
@@ -71,7 +63,6 @@
                 linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
             background-size: 50px 50px;
-            transition: transform 0.1s ease-out;
         }
 
         /* Name and description in top-left */
@@ -81,8 +72,6 @@
             left: 40px;
             z-index: 10;
             max-width: 520px;
-            transform-origin: top left;
-            transition: transform 0.1s ease-out;
         }
 
         .name-text {
@@ -152,57 +141,6 @@
             pointer-events: none;
         }
 
-        /* Custom Cursor */
-        .cursor {
-            position: fixed;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 3;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-            transition: width 0.2s ease, height 0.2s ease;
-        }
-
-        /* Cursor pointer dot */
-        .cursor-pointer {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.9);
-            pointer-events: none;
-            z-index: 4;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-        }
-
-        /* Cursor Echoes */
-        .cursor-echo {
-            position: fixed;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 2;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            animation: fadeEcho 0.6s ease-out forwards;
-        }
-
-        @keyframes fadeEcho {
-            0% {
-                opacity: 0.6;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(1.5);
-            }
-        }
-
         @media (max-width: 768px) {
             .name-container {
                 max-width: calc(100% - 60px);
@@ -234,14 +172,6 @@
                 width: 20px;
                 height: 20px;
             }
-
-            .cursor, .cursor-echo, .cursor-pointer {
-                display: none;
-            }
-
-            body, html {
-                cursor: auto;
-            }
         }
     </style>
 </head>
@@ -252,7 +182,6 @@
 
         <!-- Background Images -->
         <div class="background-layer base-image"></div>
-        <div class="background-layer reveal-image" id="revealImage"></div>
 
         <!-- Name and Description -->
         <div class="name-container" id="nameContainer">
@@ -264,7 +193,7 @@
                 i'm working on ekflow labs to accelerate actionable ai. we are a lean team, with amazing backers, and we ship fast.<br><br>
                 18 years old aritra ghosh is a young entrepreneur and the founder of ekflow labs, ekflow labs media, and ekflow labs games. ekflow labs media marketing agency with a global client base and a solid revenue stream. at just 16, aritra has already made a name in the industry, leveraging creativity and strategic thinking to deliver impactful results. known for an innovative approach and a commitment to growth, aritra continuously expands ekflow labs and its subsidiaries, including ventures in media and gaming. as a dedicated leader and visionary, aritra consistently pushes boundaries to diversify and enhance his business endeavors.
             </div>
-            <a href="https://linktr.ee/aritraghoshxyz" target="_blank" class="links-button" id="linksButton">links</a>
+            <a href="https://calendly.com/ekflowlabs/45-minute-meeting" target="_blank" class="links-button" id="linksButton">book a call</a>
             
             <!-- Social Links -->
             <div class="social-links" id="socialLinks">
@@ -290,102 +219,10 @@
                 </a>
             </div>
         </div>
-
-        <!-- Custom Cursor -->
-        <div class="cursor" id="cursor"></div>
-        <div class="cursor-pointer" id="cursorPointer"></div>
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        const cursor = document.getElementById('cursor');
-        const cursorPointer = document.getElementById('cursorPointer');
-        const revealImage = document.getElementById('revealImage');
-        const nameContainer = document.getElementById('nameContainer');
-        const nameText = document.getElementById('nameText');
-        const description = document.getElementById('description');
-        const linksButton = document.getElementById('linksButton');
-        const instagramIcon = document.getElementById('instagramIcon');
-        const twitterIcon = document.getElementById('twitterIcon');
-        const linkedinIcon = document.getElementById('linkedinIcon');
-        const emailIcon = document.getElementById('emailIcon');
-        const gridOverlay = document.getElementById('gridOverlay');
-
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let cursorX = mouseX;
-        let cursorY = mouseY;
-        let lastMouseX = mouseX;
-        let lastMouseY = mouseY;
-        let lastEchoTime = 0;
-
-        // Smooth cursor follow with delay
-        function animateCursor() {
-            const dx = mouseX - cursorX;
-            const dy = mouseY - cursorY;
-            
-            cursorX += dx * 0.15;
-            cursorY += dy * 0.15;
-
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-
-            // Update cursor pointer to follow mouse exactly
-            cursorPointer.style.left = mouseX + 'px';
-            cursorPointer.style.top = mouseY + 'px';
-
-            // Update reveal mask
-            const radius = 100;
-            revealImage.style.clipPath = `circle(${radius}px at ${cursorX}px ${cursorY}px)`;
-
-            // Parallax effect on elements
-            const parallaxStrength = 0.02;
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            const offsetX = (mouseX - centerX) * parallaxStrength;
-            const offsetY = (mouseY - centerY) * parallaxStrength;
-
-            nameContainer.style.transform = `translate(${-offsetX}px, ${-offsetY}px)`;
-            gridOverlay.style.transform = `translate(${offsetX * 2}px, ${offsetY * 2}px)`;
-
-            requestAnimationFrame(animateCursor);
-        }
-
-        function createEcho(x, y) {
-            const echo = document.createElement('div');
-            echo.className = 'cursor-echo';
-            echo.style.left = x + 'px';
-            echo.style.top = y + 'px';
-            document.body.appendChild(echo);
-
-            setTimeout(() => {
-                echo.remove();
-            }, 600);
-        }
-
-        // Track mouse movement
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            // Calculate velocity
-            const dx = mouseX - lastMouseX;
-            const dy = mouseY - lastMouseY;
-            const velocity = Math.sqrt(dx * dx + dy * dy);
-
-            // Create echo if moving fast enough and enough time has passed
-            const currentTime = Date.now();
-            if (velocity > 15 && currentTime - lastEchoTime > 50) {
-                createEcho(mouseX, mouseY);
-                lastEchoTime = currentTime;
-            }
-
-            lastMouseX = mouseX;
-            lastMouseY = mouseY;
-        });
-
-        // Start cursor animation
-        animateCursor();
-
-        // Initialize cursor position
-        cursor.style.left = mouseX + 'px';
-        cursor.sty
+        // No interactive effects - simple static page
+    </script>
+</body>
+</html>
