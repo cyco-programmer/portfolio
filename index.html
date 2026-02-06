@@ -92,12 +92,7 @@
             line-height: 1.1;
             letter-spacing: -0.02em;
             color: var(--text-color);
-            transition: color var(--transition-smooth);
             margin-bottom: 20px;
-        }
-
-        .name-text.inverted {
-            color: var(--text-inverted);
         }
 
         .description {
@@ -106,12 +101,7 @@
             font-weight: 300;
             line-height: 1.6;
             color: var(--text-color);
-            transition: color var(--transition-smooth);
             margin-bottom: 16px;
-        }
-
-        .description.inverted {
-            color: var(--text-inverted);
         }
 
         .links-button {
@@ -133,16 +123,6 @@
         .links-button:hover {
             background: var(--text-color);
             color: #ffffff;
-        }
-
-        .links-button.inverted {
-            color: var(--text-inverted);
-            border-color: var(--text-inverted);
-        }
-
-        .links-button.inverted:hover {
-            background: var(--text-inverted);
-            color: #1a1a1a;
         }
 
         /* Social icons under links button */
@@ -169,12 +149,7 @@
             width: 100%;
             height: 100%;
             fill: var(--text-color);
-            transition: fill var(--transition-smooth);
             pointer-events: none;
-        }
-
-        .social-icon.inverted svg {
-            fill: var(--text-inverted);
         }
 
         /* Custom Cursor */
@@ -308,7 +283,7 @@
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                     </svg>
                 </a>
-                <a href="mailto:reachout.ag@gmail.com" class="social-icon" id="emailIcon">
+                <a href="/cdn-cgi/l/email-protection#b9cbdcd8dad1d6cccd97d8def9ded4d8d0d597dad6d4" class="social-icon" id="emailIcon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
@@ -321,7 +296,7 @@
         <div class="cursor-pointer" id="cursorPointer"></div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         const cursor = document.getElementById('cursor');
         const cursorPointer = document.getElementById('cursorPointer');
         const revealImage = document.getElementById('revealImage');
@@ -362,15 +337,6 @@
             const radius = 100;
             revealImage.style.clipPath = `circle(${radius}px at ${cursorX}px ${cursorY}px)`;
 
-            // Check if elements should be inverted
-            checkInversion(nameText, cursorX, cursorY, radius);
-            checkInversion(description, cursorX, cursorY, radius);
-            checkInversion(linksButton, cursorX, cursorY, radius);
-            checkInversion(instagramIcon, cursorX, cursorY, radius);
-            checkInversion(twitterIcon, cursorX, cursorY, radius);
-            checkInversion(linkedinIcon, cursorX, cursorY, radius);
-            checkInversion(emailIcon, cursorX, cursorY, radius);
-
             // Parallax effect on elements
             const parallaxStrength = 0.02;
             const centerX = window.innerWidth / 2;
@@ -382,23 +348,6 @@
             gridOverlay.style.transform = `translate(${offsetX * 2}px, ${offsetY * 2}px)`;
 
             requestAnimationFrame(animateCursor);
-        }
-
-        function checkInversion(element, cx, cy, radius) {
-            const rect = element.getBoundingClientRect();
-            const elementCenterX = rect.left + rect.width / 2;
-            const elementCenterY = rect.top + rect.height / 2;
-            
-            const distance = Math.sqrt(
-                Math.pow(cx - elementCenterX, 2) + 
-                Math.pow(cy - elementCenterY, 2)
-            );
-
-            if (distance < radius + 50) {
-                element.classList.add('inverted');
-            } else {
-                element.classList.remove('inverted');
-            }
         }
 
         function createEcho(x, y) {
@@ -439,9 +388,4 @@
 
         // Initialize cursor position
         cursor.style.left = mouseX + 'px';
-        cursor.style.top = mouseY + 'px';
-        cursorPointer.style.left = mouseX + 'px';
-        cursorPointer.style.top = mouseY + 'px';
-    </script>
-</body>
-</html>
+        cursor.sty
